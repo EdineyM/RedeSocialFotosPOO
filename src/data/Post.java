@@ -5,25 +5,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
-    private Long id;
+    private static int id = 1;
     private Photo photo;
     private String caption;
     private Usuario author;
     private List<Usuario> likes;
     private LocalDateTime createdAt;
-    private static Long nextId = 1L;
+    private int likesId;
 
-    public Post(Photo photo, String caption, Usuario author) {
-        this.id = nextId++;
+    public Post(Photo photo, String caption, Usuario author, int likesId) {
         this.photo = photo;
         this.caption = caption;
         this.author = author;
         this.likes = new ArrayList<>();
         this.createdAt = LocalDateTime.now();
+        this.likesId = likesId;
     }
 
-    public Long getId() {
+    public Post(Photo photo, String caption, Usuario author) {
+        this(photo, caption, author, 0);
+    }
+
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Photo getPhoto() {
@@ -46,6 +54,14 @@ public class Post {
         return createdAt;
     }
 
+    public int getLikesId() {
+        return likesId;
+    }
+
+    public void setLikesId(int likesId) {
+        this.likesId = likesId;
+    }
+
     public void addLike(Usuario usuario) {
         if (!likes.contains(usuario)) {
             likes.add(usuario);
@@ -60,13 +76,13 @@ public class Post {
     public boolean equals(Object obj) {
         if (obj instanceof Post) {
             Post other = (Post) obj;
-            return this.id.equals(other.id);
+            return this.id == other.id;
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Integer.hashCode(id);
     }
 }

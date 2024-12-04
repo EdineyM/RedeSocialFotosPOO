@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
+    private static int id = 1;
     private String username;
     private String password;
     private String fullName;
@@ -16,6 +17,18 @@ public class Usuario {
         this.fullName = fullName;
         this.biography = "";
         this.following = new ArrayList<>();
+    }
+
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        id = id;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getUsername() {
@@ -40,6 +53,10 @@ public class Usuario {
 
     public List<Usuario> getFollowing() {
         return new ArrayList<>(following);
+    }
+
+    public void setFollowing(List<Usuario> following) {
+        this.following = following;
     }
 
     public void addFollowing(Usuario usuario) {

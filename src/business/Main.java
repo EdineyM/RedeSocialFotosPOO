@@ -1,7 +1,10 @@
 package business;
 
+import persistence.DatabaseConnection;
 import presentation.MainWindow;
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +13,15 @@ public class Main {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        // Estabelece a conexão com o banco de dados
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+            System.out.println("Conexão com o banco de dados estabelecida com sucesso!");
+        } catch (SQLException e) {
+            System.err.println("Erro ao estabelecer conexão com o banco de dados: " + e.getMessage());
+            return;
         }
 
         // Inicia a aplicação na Event Dispatch Thread

@@ -130,6 +130,7 @@ public class FeedPanel extends JPanel {
         // Nome do autor
         JLabel autorLabel = new JLabel(post.getAuthor().getFullName());
         autorLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        autorLabel.setForeground(Color.darkGray);
         headerPanel.add(autorLabel);
 
         // Badge "Seu post" se for do usuário logado
@@ -141,19 +142,19 @@ public class FeedPanel extends JPanel {
         }
 
         // Data do post
-        JPanel datePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        datePanel.setBackground(Color.WHITE);
-        String dataFormatada = post.getCreatedAt().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        JLabel dateLabel = new JLabel(dataFormatada);
-        dateLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-        dateLabel.setForeground(Color.GRAY);
-        datePanel.add(dateLabel);
+//        JPanel datePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+//        datePanel.setBackground(Color.WHITE);
+//        String dataFormatada = post.getCreatedAt().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+//        JLabel dateLabel = new JLabel(dataFormatada);
+//        dateLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+//        dateLabel.setForeground(Color.GRAY);
+//        datePanel.add(dateLabel);
 
         // Adiciona ambos os painéis ao header usando BorderLayout
         JPanel fullHeaderPanel = new JPanel(new BorderLayout());
         fullHeaderPanel.setBackground(Color.WHITE);
         fullHeaderPanel.add(headerPanel, BorderLayout.WEST);
-        fullHeaderPanel.add(datePanel, BorderLayout.EAST);
+//        fullHeaderPanel.add(datePanel, BorderLayout.EAST);
 
         // Substitui o headerPanel original pelo fullHeaderPanel
         headerPanel = fullHeaderPanel;

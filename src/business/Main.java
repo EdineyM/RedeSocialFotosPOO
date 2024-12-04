@@ -26,14 +26,19 @@ public class Main {
 
         // Inicia a aplicação na Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
-            Sistema sistema = new Sistema();
+            Sistema sistema = null;
+            try {
+                sistema = new Sistema();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             // Cria alguns usuários de teste
             try {
-                sistema.cadastrarUsuario("joao", "123", "João Silva");
+                /*sistema.cadastrarUsuario("joao", "123", "João Silva");
                 sistema.cadastrarUsuario("maria", "123", "Maria Santos");
                 sistema.cadastrarUsuario("pedro", "123", "Pedro Souza");
-                sistema.cadastrarUsuario("ediney", "123", "Ediney Mendonça");
+                sistema.cadastrarUsuario("ediney", "123", "Ediney Mendonça");*/
                 System.out.println("Usuários de teste criados com sucesso!");
             } catch (Exception e) {
                 System.err.println("Erro ao criar usuários de teste: " + e.getMessage());

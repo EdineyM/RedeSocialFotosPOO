@@ -20,7 +20,7 @@ public class PostDAO {
             preparedStatement.setString(1, post.getCaption());
             preparedStatement.setInt(2, 0); // Assuming likes_id is 0 for now
             preparedStatement.setInt(3, post.getAuthor().getId());
-            preparedStatement.setInt(4, post.getPhoto().getId());
+            preparedStatement.setInt(4, post.getPhoto().getId()); //TODO: Corrigir esse sql e mudar para Blob o tipo de dado
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -92,6 +92,34 @@ public class PostDAO {
             }
 
             return posts;
+        }
+    }
+
+    public void addLike(Post post, Usuario usuario) {
+        String sql = "INSERT INTO likes (post_id, user_id) VALUES (?, ?)";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, post.getId());
+            preparedStatement.setInt(2, usuario.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeLike(Post post, Usuario usuario) {
+        String sql = "DELETE FROM likes WHERE post_id = ? AND user_id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, post.getId());
+            preparedStatement.setInt(2, usuario.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

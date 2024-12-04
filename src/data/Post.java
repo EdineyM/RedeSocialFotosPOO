@@ -1,5 +1,7 @@
 package data;
 
+import persistence.PostDAO;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ public class Post {
     private List<Usuario> likes;
     private LocalDateTime createdAt;
     private int likesId;
+
+    private static PostDAO postDAO = new PostDAO();
 
     public Post(Photo photo, String caption, Usuario author, int likesId) {
         this.photo = photo;
@@ -65,11 +69,13 @@ public class Post {
     public void addLike(Usuario usuario) {
         if (!likes.contains(usuario)) {
             likes.add(usuario);
+            postDAO.addLike(this, usuario);
         }
     }
 
     public void removeLike(Usuario usuario) {
         likes.remove(usuario);
+        postDAO.removeLike(this, usuario);
     }
 
     @Override

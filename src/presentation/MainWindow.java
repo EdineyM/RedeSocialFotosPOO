@@ -4,6 +4,7 @@ import business.Sistema;
 import data.Usuario;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class MainWindow extends JFrame {
     private Sistema sistema;
@@ -45,7 +46,7 @@ public class MainWindow extends JFrame {
         mostrarLogin();
     }
 
-    public void setUsuarioLogado(Usuario usuario) {
+    public void setUsuarioLogado(Usuario usuario) throws SQLException {
         this.usuarioLogado = usuario;
         feedPanel.atualizarFeed();
         perfilPanel.atualizarPerfil();

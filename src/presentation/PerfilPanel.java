@@ -4,6 +4,7 @@ import business.Sistema;
 import data.Usuario;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class PerfilPanel extends JPanel {
@@ -56,7 +57,13 @@ public class PerfilPanel extends JPanel {
 
         searchField = new JTextField(20);
         JButton searchButton = new JButton("Buscar");
-        searchButton.addActionListener(e -> buscarUsuario());
+        searchButton.addActionListener(e -> {
+            try {
+                buscarUsuario();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         searchPanel.add(searchField);
         searchPanel.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -117,7 +124,7 @@ public class PerfilPanel extends JPanel {
         repaint();
     }
 
-    private void buscarUsuario() {
+    private void buscarUsuario() throws SQLException {
         String username = searchField.getText().trim();
         if (!username.isEmpty()) {
             Usuario encontrado = sistema.buscarUsuario(username);

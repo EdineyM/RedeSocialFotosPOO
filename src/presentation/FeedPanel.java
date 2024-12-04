@@ -9,6 +9,7 @@ import java.awt.*;
 import java.io.File;
 import java.nio.file.Files;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.sql.SQLException;
 import java.util.List;
 
 public class FeedPanel extends JPanel {
@@ -39,7 +40,11 @@ public class FeedPanel extends JPanel {
         JButton refreshButton = new JButton("↻ Atualizar Feed");  // Unicode para símbolo de refresh
         refreshButton.addActionListener(e -> {
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            atualizarFeed();
+            try {
+                atualizarFeed();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             setCursor(Cursor.getDefaultCursor());
             JOptionPane.showMessageDialog(this,
                     "Feed atualizado com sucesso!",
@@ -67,7 +72,7 @@ public class FeedPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public void atualizarFeed() {
+    public void atualizarFeed() throws SQLException {
         feedContent.removeAll();
         Usuario usuarioLogado = mainWindow.getUsuarioLogado();
         if (usuarioLogado != null) {

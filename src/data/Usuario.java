@@ -1,5 +1,8 @@
 package data;
 
+import persistence.UsuarioDAO;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +13,8 @@ public class Usuario {
     private String fullName;
     private String biography;
     private List<Usuario> following;
+
+    private static UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public Usuario(String username, String password, String fullName) {
         this.username = username;
@@ -59,14 +64,16 @@ public class Usuario {
         this.following = following;
     }
 
-    public void addFollowing(Usuario usuario) {
+    public void addFollowing(Usuario usuario) throws SQLException {
         if (!following.contains(usuario)) {
             following.add(usuario);
+            usuarioDAO.addFollowing(this, usuario);
         }
     }
 
     public void removeFollowing(Usuario usuario) {
         following.remove(usuario);
+        usuarioDAO.removeFollowing(this, usuario);
     }
 
     @Override

@@ -11,13 +11,12 @@ create table usuarios (
 
 create table photo (
                        id serial primary key,
-                       photo_url text not null,
+                       photo_url bytea not null,
                        description text,
                        user_id integer not null,
                        foreign key (user_id) references usuarios(id)
 );
 
--- Criação da tabela de posts
 CREATE TABLE post (
                       id SERIAL PRIMARY KEY,
                       caption TEXT,
@@ -27,7 +26,6 @@ CREATE TABLE post (
                       FOREIGN KEY (photo_id) REFERENCES photo(id)
 );
 
--- Criação da tabela de likes
 CREATE TABLE likes (
                        id SERIAL PRIMARY KEY,
                        user_id INTEGER NOT NULL,
@@ -36,7 +34,6 @@ CREATE TABLE likes (
                        FOREIGN KEY (post_id) REFERENCES post(id)
 );
 
--- Adicionando a constraint de chave estrangeira na tabela de posts
 ALTER TABLE post
     add COLUMN likes_id INTEGER,
     ADD CONSTRAINT fk_likes_id
@@ -49,3 +46,6 @@ create table user_following (
                                 foreign key (user_id) references usuarios(id),
                                 foreign key (following_id) references usuarios(id)
 );
+
+ALTER TABLE post
+    drop constraint fk_likes_id;
